@@ -17,7 +17,6 @@ func TestMainHandlerSuccess(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 
 	assert.Equal(t, http.StatusOK, responseRecorder.Code)
-	assert.NotEmpty(t, responseRecorder.Body.String())
 	assert.Equal(t, "Мир кофе,Сладкоежка", responseRecorder.Body.String())
 }
 
@@ -41,6 +40,5 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 
 	assert.Equal(t, http.StatusOK, responseRecorder.Code)
-	assert.NotEmpty(t, responseRecorder.Body.String())
 	assert.Equal(t, "Мир кофе,Сладкоежка,Кофе и завтраки,Сытый студент", responseRecorder.Body.String())
 }
