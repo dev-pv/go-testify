@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -32,6 +33,8 @@ func TestMainHandlerWrongCity(t *testing.T) {
 	assert.Equal(t, "wrong city value", responseRecorder.Body.String())
 }
 func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
+	totalCount := 4
+
 	req, err := http.NewRequest("GET", "/cafe?count=10&city=moscow", nil)
 	assert.NoError(t, err)
 
@@ -41,4 +44,5 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, responseRecorder.Code)
 	assert.Equal(t, "Мир кофе,Сладкоежка,Кофе и завтраки,Сытый студент", responseRecorder.Body.String())
+	assert.Len(t, strings.Split(responseRecorder.Body.String(), ","), totalCount)
 }
